@@ -1,0 +1,703 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="author" content="John Doe">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&family=Open+Sans&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    </head>
+    <body>
+        <style>
+            *{
+                margin:0;
+                padding: 0;
+                overflow-y:auto;
+                -ms-overflow-style: none;  /* IE and Edge */
+                scrollbar-width: none;  /* Firefox */
+                font-family: 'Montserrat', sans-serif;
+            }
+            *::-webkit-scrollbar {
+            display: none;
+            }
+            .Container{
+                display: grid;
+                width: 100vw;
+                height: 100vh;
+                background-color: #FFFFFF;
+                grid-template-columns: 1fr 6fr;
+                grid-template-rows: .3fr 4fr;
+            }
+            .topNav{
+                background-color: transparent;
+                grid-column-start: 2;
+                grid-column-end: 7;
+                grid-row-start: 1;
+                grid-row-end: 2;
+                padding: 10px;
+            }
+            .sidenav{
+                background-color: transparent;
+                grid-row-start: 1;
+                grid-row-end: 5;
+                grid-column-start: 1;
+                grid-column-end: 2;
+                display: grid;
+                width: 94%;
+                height: 98%;
+                padding: 3%;
+                grid-template-columns: 1fr;
+                grid-template-rows: .8fr  .2fr .2fr .2fr .2fr .2fr .2fr 2fr;
+                font-family: 'Montserrat', sans-serif;
+            }
+            .main{
+                grid-column-start: 2;
+                grid-column-end: 7;
+                padding: 3%;
+            }
+            .topNav > div{
+                background: rgb(0,230,118);
+                background: linear-gradient(90deg, rgba(0,230,118,1) 0%, rgba(178,255,89,1) 100%);
+                border-radius: 10px;
+                height: 90%;
+            }
+            .menu{
+                list-style: none;
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                padding-left: 20px;
+                font-weight: bold;
+                font-size: 18px;
+                color: black;
+                text-transform: uppercase;
+            }
+            .menu.logo{
+                justify-content: center;
+                padding-left: 0;
+            }
+            .menu.active{
+                color: white;
+                background-color: rgb(0,230,118);
+                border-bottom: 1px solid rgb(0,230,118);
+            }
+            .menu:hover{
+                /* border: 2px solid #00E676; */
+                color: black;
+                background-color: rgb(238, 237, 237);
+            }
+            .menu.logo:hover,.menu.logout:hover{
+                border: 1px solid transparent;
+                color: black;
+                background-color: transparent;
+            }
+            .wrapper{
+                /* border: 1px solid; */
+                height: 100%;
+                box-shadow: 0px 2px 3px #00000083;
+                padding: 15px;
+                background-color: white;
+            }
+            form{
+                display: flex; 
+                flex-direction: column;
+            }
+            .formControl{
+                display: flex;
+                flex-direction: column;
+                padding-bottom: 15px;
+                /* background-color: rgb(0, 255, 115); */
+            }
+            .formControl>label{
+                padding-left: 20px;
+                text-transform:capitalize;
+                font-size: 17px;
+                color: black;
+                font-family: 'Open Sans', sans-serif;
+                font-weight: bold;
+            }
+            .inputs{
+                border: 2px solid rgb(160, 182, 185);
+                padding: 10px 20px;
+                border-radius: 3px;
+                font-size: 15px;
+                color: black;
+                margin-left: 1%;
+                width: 90%;
+                font-family: 'Open Sans', sans-serif;
+            }
+            .inputs:focus{
+                border: 3px solid rgb(160, 182, 185);
+            }
+            .btnContainer{
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-content:flex-end;
+                margin-left:20px;
+                width: 89%;
+            }
+            button{
+                width: 30%;
+                border-radius: 5px;
+                border: 1px solid #00E676;
+                padding: 10px 20px;
+                color:black;
+                font-weight: bold;
+                background-color: white;
+                font-family: 'Open Sans', sans-serif;
+            }
+            button.save{
+                color: black;
+                border: 1px solid #B2FF59;
+                background-color:#B2FF59;
+                font-family: 'Open Sans', sans-serif;
+            }
+            .imgContainer{
+                width: 50%;
+                height: 50%;
+            }
+            .table{
+            background-color: white;
+            display: flex;
+            place-items:inherit;
+            flex-direction: column;
+            width: 100%;
+            height: 99%;
+            place-items: center;
+            font-family: 'Montserrat', sans-serif;
+        }
+        .thead{
+            width: 100%;
+            border-radius: 10px 10px 0 0;
+            background-color: white;
+            height: 12%;
+            display: flex;
+            flex-direction: row;
+            text-transform:uppercase;
+        }
+        .thead>.cell{
+            width: 16.6%;
+            /* border: 1px solid; */
+            padding: 23px 15px;
+            font-size: 14px;
+        }
+        .tbody{
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            border-radius: 0px 0px 10px 10px;
+            height: 85%;
+            overflow-y: auto;
+            flex-wrap: wrap;
+            align-content: flex-start;
+            
+        }
+        .tbody::-webkit-scrollbar {
+        display: none;
+        }
+        .tbody {
+        -ms-overflow-style: none;  
+        scrollbar-width: none; 
+        }
+        .tr{
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            border-bottom: 1px solid;
+            height: 40px;
+            align-items:center;
+        }
+        .tr>.cell{
+            padding: 7px 15px;
+            width: 16.6%;
+            /* border: 1px solid; */
+            font-size: 14px;
+        }
+        .tr:nth-child(odd){
+            background-color: transparent;
+        }
+        .tr:nth-child(even){
+            background-color: #f8fcf2;
+        }
+        .cell.del{
+            max-width: 15px;
+            color: red;
+        }
+        label{
+            display: none;
+        }
+        .icon{
+            display: none;
+        }
+
+        @media screen and (max-width: 550px) {
+            .Container{
+                display: grid;
+                width: 100vw;
+                height: 100vh;
+                grid-template-columns: 1fr;
+                grid-template-rows: 1fr 1fr 1fr 1fr;
+            }
+            .topNav{
+                display: none;
+                /* grid-column-start: 1;
+                grid-column-end: 2;
+                grid-row-start: 1;
+                grid-row-end: 2;
+                padding: 5px; */
+            }
+            .sidenav{
+                grid-row-start: 1;
+                grid-row-end: 2;
+                grid-column-start: 1;
+                grid-column-end: 2;
+                display: grid;
+                width: 94%;
+                height: 98%;
+                padding: 3%;
+                grid-template-columns: 1fr;
+                grid-template-rows: 1fr  .6fr .6fr .6fr .6fr .6fr .6fr .8fr;
+                font-family: 'Montserrat', sans-serif;
+            }
+            .main{
+                grid-column-start: 1;
+                grid-column-end: 2;
+                padding: 3%;
+                grid-row-start: 2;
+                grid-row-end: 5;
+            }
+            .imgContainer{
+                width: 25%;
+                height: 100%;
+            }
+            .thead{
+                display: none;
+            }
+            .tr{
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                border-bottom: 1px solid;
+                height: fit-content;
+            }
+            .tr>.cell{
+                width: 87%;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                
+            }
+            .cell.del{
+                max-width: 100%;
+                color: red;
+                display: flex;
+                justify-content:flex-end
+            }
+            label{
+                display:contents;
+                font-weight: bold;
+            }
+            .menu{
+                display: none;
+            }
+            .icon{
+                display: flex;
+                width: 92%;
+                justify-content: flex-end;
+                color:white;
+                background-color: black;
+                padding: 12px;
+            }
+            .menu.mobile{
+                display:block;
+            }
+
+        }
+        </style>
+        <div class="Container">
+            <div class="topNav">
+                <div></div>
+            </div>
+            <div class="sidenav">
+                    <li class="icon" onclick="dropdownMenu()"><i class="fas fa-bars"></i></li>
+                    <li class="menu logo"><div class="imgContainer"><img src="logos/library.svg"></div></li>
+                    <li class="menu active">News</li>
+                    <li class="menu">History</li>
+                    <li class="menu">Advertisements</li>
+                    <li class="menu">Reports</li>
+                    <li class="menu">User Management</li>
+                    <li class="menu">Documents</li>
+                    <li class="menu logout">Log out</li>
+            </div>
+            <div class="main">
+                <div class="wrapper">
+                    <div class="table">
+                        <div class="thead">
+                            <div class="cell">Vehicle type</div>
+                            <div class="cell">Vehicle registration</div>
+                            <div class="cell">Date Due</div>
+                            <div class="cell">Vendor / Mechanic</div>
+                            <div class="cell">Maintenance Type</div>
+                            <div class="cell">Status</div>
+                            <div class="cell del"></div>
+                        </div>
+                        <div class="tbody">
+                            <div class="tr">
+                                <div class="cell"><label>Vehicle type: </label>Vehicle type</div>
+                                <div class="cell"><label>Vehicle registration: </label>Vehicle registration</div>
+                                <div class="cell"><label>Date Due: </label>Date Due</div>
+                                <div class="cell"><label>Vendor / Mechanic: </label>Vendor / Mechanic</div>
+                                <div class="cell"><label>Maintenance Type: </label>Maintenance Type</div>
+                                <div class="cell"><label>Status: </label>Status</div>
+                                <div class="cell del"><i class="fas fa-trash-alt"></i></div>
+                            </div>
+                            <div class="tr">
+                                <div class="cell"><label>Vehicle type: </label>Vehicle type</div>
+                                <div class="cell"><label>Vehicle registration: </label>Vehicle registration</div>
+                                <div class="cell"><label>Date Due: </label>Date Due</div>
+                                <div class="cell"><label>Vendor / Mechanic: </label>Vendor / Mechanic</div>
+                                <div class="cell"><label>Maintenance Type: </label>Maintenance Type</div>
+                                <div class="cell"><label>Status: </label>Status</div>
+                                <div class="cell del"><i class="fas fa-trash-alt"></i></div>
+                            </div>
+                            <div class="tr">
+                                <div class="cell"><label>Vehicle type: </label>Vehicle type</div>
+                                <div class="cell"><label>Vehicle registration: </label>Vehicle registration</div>
+                                <div class="cell"><label>Date Due: </label>Date Due</div>
+                                <div class="cell"><label>Vendor / Mechanic: </label>Vendor / Mechanic</div>
+                                <div class="cell"><label>Maintenance Type: </label>Maintenance Type</div>
+                                <div class="cell"><label>Status: </label>Status</div>
+                                <div class="cell del"><i class="fas fa-trash-alt"></i></div>
+                            </div>
+                            <div class="tr">
+                                <div class="cell"><label>Vehicle type: </label>Vehicle type</div>
+                                <div class="cell"><label>Vehicle registration: </label>Vehicle registration</div>
+                                <div class="cell"><label>Date Due: </label>Date Due</div>
+                                <div class="cell"><label>Vendor / Mechanic: </label>Vendor / Mechanic</div>
+                                <div class="cell"><label>Maintenance Type: </label>Maintenance Type</div>
+                                <div class="cell"><label>Status: </label>Status</div>
+                                <div class="cell del"><i class="fas fa-trash-alt"></i></div>
+                            </div>
+                            <div class="tr">
+                                <div class="cell"><label>Vehicle type: </label>Vehicle type</div>
+                                <div class="cell"><label>Vehicle registration: </label>Vehicle registration</div>
+                                <div class="cell"><label>Date Due: </label>Date Due</div>
+                                <div class="cell"><label>Vendor / Mechanic: </label>Vendor / Mechanic</div>
+                                <div class="cell"><label>Maintenance Type: </label>Maintenance Type</div>
+                                <div class="cell"><label>Status: </label>Status</div>
+                                <div class="cell del"><i class="fas fa-trash-alt"></i></div>
+                            </div>
+                            <div class="tr">
+                                <div class="cell"><label>Vehicle type: </label>Vehicle type</div>
+                                <div class="cell"><label>Vehicle registration: </label>Vehicle registration</div>
+                                <div class="cell"><label>Date Due: </label>Date Due</div>
+                                <div class="cell"><label>Vendor / Mechanic: </label>Vendor / Mechanic</div>
+                                <div class="cell"><label>Maintenance Type: </label>Maintenance Type</div>
+                                <div class="cell"><label>Status: </label>Status</div>
+                                <div class="cell del"><i class="fas fa-trash-alt"></i></div>
+                            </div>
+                            <div class="tr">
+                                <div class="cell"><label>Vehicle type: </label>Vehicle type</div>
+                                <div class="cell"><label>Vehicle registration: </label>Vehicle registration</div>
+                                <div class="cell"><label>Date Due: </label>Date Due</div>
+                                <div class="cell"><label>Vendor / Mechanic: </label>Vendor / Mechanic</div>
+                                <div class="cell"><label>Maintenance Type: </label>Maintenance Type</div>
+                                <div class="cell"><label>Status: </label>Status</div>
+                                <div class="cell del"><i class="fas fa-trash-alt"></i></div>
+                            </div>
+                            <div class="tr">
+                                <div class="cell"><label>Vehicle type: </label>Vehicle type</div>
+                                <div class="cell"><label>Vehicle registration: </label>Vehicle registration</div>
+                                <div class="cell"><label>Date Due: </label>Date Due</div>
+                                <div class="cell"><label>Vendor / Mechanic: </label>Vendor / Mechanic</div>
+                                <div class="cell"><label>Maintenance Type: </label>Maintenance Type</div>
+                                <div class="cell"><label>Status: </label>Status</div>
+                                <div class="cell del"><i class="fas fa-trash-alt"></i></div>
+                            </div>
+                            <div class="tr">
+                                <div class="cell"><label>Vehicle type: </label>Vehicle type</div>
+                                <div class="cell"><label>Vehicle registration: </label>Vehicle registration</div>
+                                <div class="cell"><label>Date Due: </label>Date Due</div>
+                                <div class="cell"><label>Vendor / Mechanic: </label>Vendor / Mechanic</div>
+                                <div class="cell"><label>Maintenance Type: </label>Maintenance Type</div>
+                                <div class="cell"><label>Status: </label>Status</div>
+                                <div class="cell del"><i class="fas fa-trash-alt"></i></div>
+                            </div>
+                            <div class="tr">
+                                <div class="cell"><label>Vehicle type: </label>Vehicle type</div>
+                                <div class="cell"><label>Vehicle registration: </label>Vehicle registration</div>
+                                <div class="cell"><label>Date Due: </label>Date Due</div>
+                                <div class="cell"><label>Vendor / Mechanic: </label>Vendor / Mechanic</div>
+                                <div class="cell"><label>Maintenance Type: </label>Maintenance Type</div>
+                                <div class="cell"><label>Status: </label>Status</div>
+                                <div class="cell del"><i class="fas fa-trash-alt"></i></div>
+                            </div>
+                            <div class="tr">
+                                <div class="cell"><label>Vehicle type: </label>Vehicle type</div>
+                                <div class="cell"><label>Vehicle registration: </label>Vehicle registration</div>
+                                <div class="cell"><label>Date Due: </label>Date Due</div>
+                                <div class="cell"><label>Vendor / Mechanic: </label>Vendor / Mechanic</div>
+                                <div class="cell"><label>Maintenance Type: </label>Maintenance Type</div>
+                                <div class="cell"><label>Status: </label>Status</div>
+                                <div class="cell del"><i class="fas fa-trash-alt"></i></div>
+                            </div>
+                            <div class="tr">
+                                <div class="cell"><label>Vehicle type: </label>Vehicle type</div>
+                                <div class="cell"><label>Vehicle registration: </label>Vehicle registration</div>
+                                <div class="cell"><label>Date Due: </label>Date Due</div>
+                                <div class="cell"><label>Vendor / Mechanic: </label>Vendor / Mechanic</div>
+                                <div class="cell"><label>Maintenance Type: </label>Maintenance Type</div>
+                                <div class="cell"><label>Status: </label>Status</div>
+                                <div class="cell del"><i class="fas fa-trash-alt"></i></div>
+                            </div>
+                            <div class="tr">
+                                <div class="cell"><label>Vehicle type: </label>Vehicle type</div>
+                                <div class="cell"><label>Vehicle registration: </label>Vehicle registration</div>
+                                <div class="cell"><label>Date Due: </label>Date Due</div>
+                                <div class="cell"><label>Vendor / Mechanic: </label>Vendor / Mechanic</div>
+                                <div class="cell"><label>Maintenance Type: </label>Maintenance Type</div>
+                                <div class="cell"><label>Status: </label>Status</div>
+                                <div class="cell del"><i class="fas fa-trash-alt"></i></div>
+                            </div>
+                            <div class="tr">
+                                <div class="cell"><label>Vehicle type: </label>Vehicle type</div>
+                                <div class="cell"><label>Vehicle registration: </label>Vehicle registration</div>
+                                <div class="cell"><label>Date Due: </label>Date Due</div>
+                                <div class="cell"><label>Vendor / Mechanic: </label>Vendor / Mechanic</div>
+                                <div class="cell"><label>Maintenance Type: </label>Maintenance Type</div>
+                                <div class="cell"><label>Status: </label>Status</div>
+                                <div class="cell del"><i class="fas fa-trash-alt"></i></div>
+                            </div>
+                            <div class="tr">
+                                <div class="cell"><label>Vehicle type: </label>Vehicle type</div>
+                                <div class="cell"><label>Vehicle registration: </label>Vehicle registration</div>
+                                <div class="cell"><label>Date Due: </label>Date Due</div>
+                                <div class="cell"><label>Vendor / Mechanic: </label>Vendor / Mechanic</div>
+                                <div class="cell"><label>Maintenance Type: </label>Maintenance Type</div>
+                                <div class="cell"><label>Status: </label>Status</div>
+                                <div class="cell del"><i class="fas fa-trash-alt"></i></div>
+                            </div>
+                            <div class="tr">
+                                <div class="cell"><label>Vehicle type: </label>Vehicle type</div>
+                                <div class="cell"><label>Vehicle registration: </label>Vehicle registration</div>
+                                <div class="cell"><label>Date Due: </label>Date Due</div>
+                                <div class="cell"><label>Vendor / Mechanic: </label>Vendor / Mechanic</div>
+                                <div class="cell"><label>Maintenance Type: </label>Maintenance Type</div>
+                                <div class="cell"><label>Status: </label>Status</div>
+                                <div class="cell del"><i class="fas fa-trash-alt"></i></div>
+                            </div>
+                            <div class="tr">
+                                <div class="cell"><label>Vehicle type: </label>Vehicle type</div>
+                                <div class="cell"><label>Vehicle registration: </label>Vehicle registration</div>
+                                <div class="cell"><label>Date Due: </label>Date Due</div>
+                                <div class="cell"><label>Vendor / Mechanic: </label>Vendor / Mechanic</div>
+                                <div class="cell"><label>Maintenance Type: </label>Maintenance Type</div>
+                                <div class="cell"><label>Status: </label>Status</div>
+                                <div class="cell del"><i class="fas fa-trash-alt"></i></div>
+                            </div>
+                            <div class="tr">
+                                <div class="cell"><label>Vehicle type: </label>Vehicle type</div>
+                                <div class="cell"><label>Vehicle registration: </label>Vehicle registration</div>
+                                <div class="cell"><label>Date Due: </label>Date Due</div>
+                                <div class="cell"><label>Vendor / Mechanic: </label>Vendor / Mechanic</div>
+                                <div class="cell"><label>Maintenance Type: </label>Maintenance Type</div>
+                                <div class="cell"><label>Status: </label>Status</div>
+                                <div class="cell del"><i class="fas fa-trash-alt"></i></div>
+                            </div>
+                            <div class="tr">
+                                <div class="cell"><label>Vehicle type: </label>Vehicle type</div>
+                                <div class="cell"><label>Vehicle registration: </label>Vehicle registration</div>
+                                <div class="cell"><label>Date Due: </label>Date Due</div>
+                                <div class="cell"><label>Vendor / Mechanic: </label>Vendor / Mechanic</div>
+                                <div class="cell"><label>Maintenance Type: </label>Maintenance Type</div>
+                                <div class="cell"><label>Status: </label>Status</div>
+                                <div class="cell del"><i class="fas fa-trash-alt"></i></div>
+                            </div>
+                            <div class="tr">
+                                <div class="cell"><label>Vehicle type: </label>Vehicle type</div>
+                                <div class="cell"><label>Vehicle registration: </label>Vehicle registration</div>
+                                <div class="cell"><label>Date Due: </label>Date Due</div>
+                                <div class="cell"><label>Vendor / Mechanic: </label>Vendor / Mechanic</div>
+                                <div class="cell"><label>Maintenance Type: </label>Maintenance Type</div>
+                                <div class="cell"><label>Status: </label>Status</div>
+                                <div class="cell del"><i class="fas fa-trash-alt"></i></div>
+                            </div>
+                            <div class="tr">
+                                <div class="cell"><label>Vehicle type: </label>Vehicle type</div>
+                                <div class="cell"><label>Vehicle registration: </label>Vehicle registration</div>
+                                <div class="cell"><label>Date Due: </label>Date Due</div>
+                                <div class="cell"><label>Vendor / Mechanic: </label>Vendor / Mechanic</div>
+                                <div class="cell"><label>Maintenance Type: </label>Maintenance Type</div>
+                                <div class="cell"><label>Status: </label>Status</div>
+                                <div class="cell del"><i class="fas fa-trash-alt"></i></div>
+                            </div>
+                            <div class="tr">
+                                <div class="cell"><label>Vehicle type: </label>Vehicle type</div>
+                                <div class="cell"><label>Vehicle registration: </label>Vehicle registration</div>
+                                <div class="cell"><label>Date Due: </label>Date Due</div>
+                                <div class="cell"><label>Vendor / Mechanic: </label>Vendor / Mechanic</div>
+                                <div class="cell"><label>Maintenance Type: </label>Maintenance Type</div>
+                                <div class="cell"><label>Status: </label>Status</div>
+                                <div class="cell del"><i class="fas fa-trash-alt"></i></div>
+                            </div>
+                            <div class="tr">
+                                <div class="cell"><label>Vehicle type: </label>Vehicle type</div>
+                                <div class="cell"><label>Vehicle registration: </label>Vehicle registration</div>
+                                <div class="cell"><label>Date Due: </label>Date Due</div>
+                                <div class="cell"><label>Vendor / Mechanic: </label>Vendor / Mechanic</div>
+                                <div class="cell"><label>Maintenance Type: </label>Maintenance Type</div>
+                                <div class="cell"><label>Status: </label>Status</div>
+                                <div class="cell del"><i class="fas fa-trash-alt"></i></div>
+                            </div>
+                            <div class="tr">
+                                <div class="cell"><label>Vehicle type: </label>Vehicle type</div>
+                                <div class="cell"><label>Vehicle registration: </label>Vehicle registration</div>
+                                <div class="cell"><label>Date Due: </label>Date Due</div>
+                                <div class="cell"><label>Vendor / Mechanic: </label>Vendor / Mechanic</div>
+                                <div class="cell"><label>Maintenance Type: </label>Maintenance Type</div>
+                                <div class="cell"><label>Status: </label>Status</div>
+                                <div class="cell del"><i class="fas fa-trash-alt"></i></div>
+                            </div>
+                            <div class="tr">
+                                <div class="cell"><label>Vehicle type: </label>Vehicle type</div>
+                                <div class="cell"><label>Vehicle registration: </label>Vehicle registration</div>
+                                <div class="cell"><label>Date Due: </label>Date Due</div>
+                                <div class="cell"><label>Vendor / Mechanic: </label>Vendor / Mechanic</div>
+                                <div class="cell"><label>Maintenance Type: </label>Maintenance Type</div>
+                                <div class="cell"><label>Status: </label>Status</div>
+                                <div class="cell del"><i class="fas fa-trash-alt"></i></div>
+                            </div>
+                            <div class="tr">
+                                <div class="cell"><label>Vehicle type: </label>Vehicle type</div>
+                                <div class="cell"><label>Vehicle registration: </label>Vehicle registration</div>
+                                <div class="cell"><label>Date Due: </label>Date Due</div>
+                                <div class="cell"><label>Vendor / Mechanic: </label>Vendor / Mechanic</div>
+                                <div class="cell"><label>Maintenance Type: </label>Maintenance Type</div>
+                                <div class="cell"><label>Status: </label>Status</div>
+                                <div class="cell del"><i class="fas fa-trash-alt"></i></div>
+                            </div>
+                            <div class="tr">
+                                <div class="cell"><label>Vehicle type: </label>Vehicle type</div>
+                                <div class="cell"><label>Vehicle registration: </label>Vehicle registration</div>
+                                <div class="cell"><label>Date Due: </label>Date Due</div>
+                                <div class="cell"><label>Vendor / Mechanic: </label>Vendor / Mechanic</div>
+                                <div class="cell"><label>Maintenance Type: </label>Maintenance Type</div>
+                                <div class="cell"><label>Status: </label>Status</div>
+                                <div class="cell del"><i class="fas fa-trash-alt"></i></div>
+                            </div>
+                            <div class="tr">
+                                <div class="cell"><label>Vehicle type: </label>Vehicle type</div>
+                                <div class="cell"><label>Vehicle registration: </label>Vehicle registration</div>
+                                <div class="cell"><label>Date Due: </label>Date Due</div>
+                                <div class="cell"><label>Vendor / Mechanic: </label>Vendor / Mechanic</div>
+                                <div class="cell"><label>Maintenance Type: </label>Maintenance Type</div>
+                                <div class="cell"><label>Status: </label>Status</div>
+                                <div class="cell del"><i class="fas fa-trash-alt"></i></div>
+                            </div>
+                            <div class="tr">
+                                <div class="cell"><label>Vehicle type: </label>Vehicle type</div>
+                                <div class="cell"><label>Vehicle registration: </label>Vehicle registration</div>
+                                <div class="cell"><label>Date Due: </label>Date Due</div>
+                                <div class="cell"><label>Vendor / Mechanic: </label>Vendor / Mechanic</div>
+                                <div class="cell"><label>Maintenance Type: </label>Maintenance Type</div>
+                                <div class="cell"><label>Status: </label>Status</div>
+                                <div class="cell del"><i class="fas fa-trash-alt"></i></div>
+                            </div>
+                            <div class="tr">
+                                <div class="cell"><label>Vehicle type: </label>Vehicle type</div>
+                                <div class="cell"><label>Vehicle registration: </label>Vehicle registration</div>
+                                <div class="cell"><label>Date Due: </label>Date Due</div>
+                                <div class="cell"><label>Vendor / Mechanic: </label>Vendor / Mechanic</div>
+                                <div class="cell"><label>Maintenance Type: </label>Maintenance Type</div>
+                                <div class="cell"><label>Status: </label>Status</div>
+                                <div class="cell del"><i class="fas fa-trash-alt"></i></div>
+                            </div>
+                            <div class="tr">
+                                <div class="cell"><label>Vehicle type: </label>Vehicle type</div>
+                                <div class="cell"><label>Vehicle registration: </label>Vehicle registration</div>
+                                <div class="cell"><label>Date Due: </label>Date Due</div>
+                                <div class="cell"><label>Vendor / Mechanic: </label>Vendor / Mechanic</div>
+                                <div class="cell"><label>Maintenance Type: </label>Maintenance Type</div>
+                                <div class="cell"><label>Status: </label>Status</div>
+                                <div class="cell del"><i class="fas fa-trash-alt"></i></div>
+                            </div>
+                            <div class="tr">
+                                <div class="cell"><label>Vehicle type: </label>Vehicle type</div>
+                                <div class="cell"><label>Vehicle registration: </label>Vehicle registration</div>
+                                <div class="cell"><label>Date Due: </label>Date Due</div>
+                                <div class="cell"><label>Vendor / Mechanic: </label>Vendor / Mechanic</div>
+                                <div class="cell"><label>Maintenance Type: </label>Maintenance Type</div>
+                                <div class="cell"><label>Status: </label>Status</div>
+                                <div class="cell del"><i class="fas fa-trash-alt"></i></div>
+                            </div>
+                            <div class="tr">
+                                <div class="cell"><label>Vehicle type: </label>Vehicle type</div>
+                                <div class="cell"><label>Vehicle registration: </label>Vehicle registration</div>
+                                <div class="cell"><label>Date Due: </label>Date Due</div>
+                                <div class="cell"><label>Vendor / Mechanic: </label>Vendor / Mechanic</div>
+                                <div class="cell"><label>Maintenance Type: </label>Maintenance Type</div>
+                                <div class="cell"><label>Status: </label>Status</div>
+                                <div class="cell del"><i class="fas fa-trash-alt"></i></div>
+                            </div>
+                            <div class="tr">
+                                <div class="cell"><label>Vehicle type: </label>Vehicle type</div>
+                                <div class="cell"><label>Vehicle registration: </label>Vehicle registration</div>
+                                <div class="cell"><label>Date Due: </label>Date Due</div>
+                                <div class="cell"><label>Vendor / Mechanic: </label>Vendor / Mechanic</div>
+                                <div class="cell"><label>Maintenance Type: </label>Maintenance Type</div>
+                                <div class="cell"><label>Status: </label>Status</div>
+                                <div class="cell del"><i class="fas fa-trash-alt"></i></div>
+                            </div>
+                            <div class="tr">
+                                <div class="cell"><label>Vehicle type: </label>Vehicle type</div>
+                                <div class="cell"><label>Vehicle registration: </label>Vehicle registration</div>
+                                <div class="cell"><label>Date Due: </label>Date Due</div>
+                                <div class="cell"><label>Vendor / Mechanic: </label>Vendor / Mechanic</div>
+                                <div class="cell"><label>Maintenance Type: </label>Maintenance Type</div>
+                                <div class="cell"><label>Status: </label>Status</div>
+                                <div class="cell del"><i class="fas fa-trash-alt"></i></div>
+                            </div>
+                            <div class="tr">
+                                <div class="cell"><label>Vehicle type: </label>Vehicle type</div>
+                                <div class="cell"><label>Vehicle registration: </label>Vehicle registration</div>
+                                <div class="cell"><label>Date Due: </label>Date Due</div>
+                                <div class="cell"><label>Vendor / Mechanic: </label>Vendor / Mechanic</div>
+                                <div class="cell"><label>Maintenance Type: </label>Maintenance Type</div>
+                                <div class="cell"><label>Status: </label>Status</div>
+                                <div class="cell del"><i class="fas fa-trash-alt"></i></div>
+                            </div>
+                            <div class="tr">
+                                <div class="cell"><label>Vehicle type: </label>Vehicle type</div>
+                                <div class="cell"><label>Vehicle registration: </label>Vehicle registration</div>
+                                <div class="cell"><label>Date Due: </label>Date Due</div>
+                                <div class="cell"><label>Vendor / Mechanic: </label>Vendor / Mechanic</div>
+                                <div class="cell"><label>Maintenance Type: </label>Maintenance Type</div>
+                                <div class="cell"><label>Status: </label>Status</div>
+                                <div class="cell del"><i class="fas fa-trash-alt"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script>
+        function dropdownMenu(){
+            var  x = document.getElementsByTagName('li');
+            
+            for(var i = 0; i < x.length; i++){
+                console.log(x[i].className);
+                if(x[i].className.includes(" mobile")){
+                    console.log("A = "+ x[i].className.replace(' mobile','hidden '));
+                    x[i].className =  x[i].className.replace(' mobile','');
+                }else{
+                    x[i].className += " mobile";
+                }
+            }
+        }
+    </script>
+</html>
