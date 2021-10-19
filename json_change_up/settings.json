@@ -1,0 +1,39 @@
+{
+    "dark":{
+        "sidenav": "#263238",
+        "header": "#212121",
+        "main": "#F5F5F6",
+        "footer": "#E1E2E1",
+        "color":"#FFF"
+    },
+    "light":{
+        "sidenav": "#81d4fa",
+        "header": "#eceff1",
+        "main": "#e0e0e0",
+        "footer": "#eceff1",
+        "color":"#000"
+    },
+    "red":{
+        "sidenav": "#b71c1c",
+        "header": "#d50000",
+        "main": "#7f0000",
+        "footer": "#d50000",
+        "color":"#FFF"
+    },
+    "eng":{
+        "sidenav": "Side Navigation",
+        "header": "Header",
+        "main": "Main content",
+        "footer": "Footer"
+    },
+    "kor":{
+        "sidenav": "saideu nebigeisyeon",
+        "header": "hedeo",
+        "main": "gibon",
+        "footer": "bohaeng-in"
+    }
+
+
+
+
+}
